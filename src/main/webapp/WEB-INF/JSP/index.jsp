@@ -4,11 +4,11 @@
 <!doctype html>
 
 <html lang='nl'>
-	<v:head title='Alles voor de keuken' />
+	<v:head title="Alles voor de keuken"/>
 
 	<body>
 		<header>
-			<v:menu />
+			<v:menu/>
 
 			<h1>Alles voor de keuken</h1>
 
