@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import be.vdab.dao.ArtikelDAO;
+//import be.vdab.dao.ArtikelDAO;
+import be.vdab.services.ArtikelService;
 
 // enkele imports ...
 
@@ -18,7 +19,8 @@ public class ZoekenServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/artikels/zoeken.jsp";
-	private final transient ArtikelDAO artikelDAO = new ArtikelDAO();
+	//private final transient ArtikelDAO artikelDAO = new ArtikelDAO();
+	private final transient ArtikelService artikelService = new ArtikelService();
 	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
@@ -27,7 +29,8 @@ public class ZoekenServlet extends HttpServlet
 		{
 			try
 			{
-				request.setAttribute("artikel",artikelDAO.read(Long.parseLong(request.getParameter("id"))));
+				//request.setAttribute("artikel",artikelDAO.read(Long.parseLong(request.getParameter("id"))));
+				request.setAttribute("artikel",artikelService.read(Long.parseLong(request.getParameter("id"))));
 			}
 			catch (NumberFormatException ex)
 			{
