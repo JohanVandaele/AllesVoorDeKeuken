@@ -1,5 +1,7 @@
 package be.vdab.dao;
 
+import java.math.BigDecimal;
+
 import be.vdab.entities.Artikel;
 
 public class ArtikelDAO extends AbstractDAO
@@ -20,4 +22,12 @@ public class ArtikelDAO extends AbstractDAO
 				.setParameter("like","%"+like+"%")
 				.getResultList();
 	}
+
+	public void algemeneOpslag(BigDecimal factor)
+	{
+		getEntityManager().createNamedQuery("Artikel.algemeneOpslag")
+			.setParameter("factor", factor)
+			.executeUpdate();
+	}
 }
+
