@@ -13,4 +13,11 @@ public class ArtikelDAO extends AbstractDAO
 	{
 		getEntityManager().persist(artikel);
 	}	
+
+	public Iterable<Artikel> findByNaamLike(String like)
+	{
+		return getEntityManager().createNamedQuery("Artikel.findByNameLike", Artikel.class)
+				.setParameter("like","%"+like+"%")
+				.getResultList();
+	}
 }

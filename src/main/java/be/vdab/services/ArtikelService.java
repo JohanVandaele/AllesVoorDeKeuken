@@ -18,4 +18,9 @@ public class ArtikelService
 		artikelDAO.create(artikel);
 		artikelDAO.commit();
 	}	
+
+	public Iterable<Artikel> findByNaamLike(String like)
+	{
+		return artikelDAO.findByNaamLike(like);
+	}
 }
