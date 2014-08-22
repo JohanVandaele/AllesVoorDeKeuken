@@ -4,14 +4,31 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
+//update artikels set soort='F'  where id in(1,2,3,4,5,6,7,8,9,10);
+//update artikels set soort='NF' where id in(11,12,13,14,15,16,17,18);
+
 @Entity
+
+//Je tikt @Inheritance bij de hoogste class in de inheritance hiërarchie.
+//Je tikt bij strategy op welke manier je inheritance nabootst in de database.
+//Je gebruikt bij “table per class hiërarchy” de waarde SINGLE_TABLE
+@Inheritance  (strategy=InheritanceType.SINGLE_TABLE)
+
+//Je tikt bij de hoogste class uit de inheritance hiërarchy de naam van de table die hoort bij de objecten uit de inheritance hiërarchie.
 @Table(name = "artikels")
-public class Artikel implements Serializable
+
+//Je tikt bij @DiscriminatorColumn de discriminator kolom.
+@DiscriminatorColumn(name = "Soort")
+
+public abstract class Artikel implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
