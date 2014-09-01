@@ -34,4 +34,9 @@ public class ArtikelService
 		artikelDAO.algemeneOpslag(factor);
 		artikelDAO.commit();
 	}
+	
+	public Iterable<Artikel> findAll()
+	{
+		return artikelDAO.findAll();
+	}
 }

@@ -3,14 +3,23 @@ package be.vdab.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import be.vdab.valueobjects.Korting;
 
 //update artikels set soort='F'  where id in(1,2,3,4,5,6,7,8,9,10);
 //update artikels set soort='NF' where id in(11,12,13,14,15,16,17,18);
@@ -40,6 +49,14 @@ public abstract class Artikel implements Serializable
 	private BigDecimal aankoopprijs;
 	private BigDecimal verkoopprijs;
 
+	@ElementCollection
+	@CollectionTable
+		(	 name = "kortingen"
+			,joinColumns = @JoinColumn(name = "artikelid")
+		)
+	@OrderBy("vanafAantal")
+	private Set<Korting> kortingen;
+	
 	public Artikel(String naam, BigDecimal aankoopprijs, BigDecimal verkoopprijs)
 	{
 		if (! isAankoopprijsVerkoopprijsValid(aankoopprijs, verkoopprijs))
@@ -50,6 +67,7 @@ public abstract class Artikel implements Serializable
 		setNaam(naam);
 		setVerkoopprijs(verkoopprijs);
 		setAankoopprijs(aankoopprijs);
+		kortingen = new LinkedHashSet<>();
 	}
 	
 	// default constructor is vereiste voor JPA
@@ -121,5 +139,20 @@ public abstract class Artikel implements Serializable
 	public static boolean isAankoopprijsVerkoopprijsValid(BigDecimal aankoopprijs,BigDecimal verkoopprijs)
 	{
 		return aankoopprijs.compareTo(verkoopprijs) <= 0;
+	}
+
+	public Set<Korting> getKortingen()
+	{
+		return Collections.unmodifiableSet(kortingen);
+	}
+	
+	public void addKorting(Korting korting)
+	{
+		kortingen.add(korting);
+	}
+	
+	public void removeTelefoonNr(Korting korting)
+	{
+		kortingen.remove(korting);
 	}
 }

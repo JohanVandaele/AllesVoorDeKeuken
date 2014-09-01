@@ -29,5 +29,10 @@ public class ArtikelDAO extends AbstractDAO
 			.setParameter("factor", factor)
 			.executeUpdate();
 	}
+	
+	public Iterable<Artikel> findAll()
+	{
+		return getEntityManager().createNamedQuery("Artikel.findAll", Artikel.class).getResultList();
+	}
 }
 
